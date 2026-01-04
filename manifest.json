@@ -1,0 +1,23 @@
+{
+  "name": "Langalihle Foundation NPO",
+  "short_name": "Langalihle",
+  "description": "Langalihle Foundation NPO empowers youth and disadvantaged communities through skills development, infrastructure support, arts & culture, and reforestation.",
+  "id": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui", "browser"],
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#1E3A8A",
+  "lang": "en-ZA",
+  "dir": "ltr",
+  "categories": ["nonprofit", "education", "community", "social", "charity"],
+  "prefer_related_applications": false,
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
