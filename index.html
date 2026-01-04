@@ -1,31 +1,49 @@
 <!DOCTYPE html>
-<html lang="en-ZA">
+<html lang="en-ZA" class="scroll-smooth">
 <head>
+  <!-- =========================================================
+    LANGALIHLE FOUNDATION NPO — HOMEPAGE (Single-file prototype)
+    Tech: HTML5 + Tailwind CDN (no build step)
+    Notes:
+    - Sponsor-grade polish: micro-interactions + counters + modal
+    - WCAG-friendly: skip link, focus rings, ARIA, reduced motion
+    - Payment: modal is gateway-ready; Stripe/PayFast can be plugged in
+  ========================================================== -->
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Langalihle Foundation NPO</title>
+  <title>Langalihle Foundation NPO | From Our Roots, We Rise</title>
   <meta
     name="description"
-    content="Langalihle Foundation NPO empowers youth and disadvantaged communities through skills development, infrastructure support, arts & culture, and reforestation."
+    content="Langalihle Foundation NPO empowers youth and disadvantaged communities through skills development, infrastructure support, cultural preservation, and sustainable development initiatives."
   />
 
-  <!-- PWA -->
+  <!-- =========================================================
+    PWA hooks (keep files in project root as you already created)
+  ========================================================== -->
   <link rel="manifest" href="/manifest.json" />
-  <meta name="theme-color" content="#1E3A8A" />
-
-  <!-- Favicon (add icon files later) -->
+  <meta name="theme-color" content="#0B2A4A" />
   <link rel="icon" href="/icons/icon-192.png" />
 
-  <!-- Tailwind CSS CDN (for prototyping) -->
+  <!-- =========================================================
+    Tailwind via CDN (quick prototyping)
+  ========================================================== -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
+    // =========================================================
+    // THEME (edit brand colors here)
+    // Requested: lighter blue + white text + yellow navbar
+    // =========================================================
     tailwind.config = {
       theme: {
         extend: {
           colors: {
             brand: {
-              blue: "#1E3A8A",
+              // Lighter, more visible navies
+              navy: "#0B2A4A",
+              navy2: "#123A63",
+              // Accent colors
               yellow: "#F4C430",
               sky: "#8ECDF4"
             }
@@ -34,107 +52,1069 @@
       }
     };
   </script>
+
+  <!-- =========================================================
+    Small custom CSS helpers (kept minimal)
+  ========================================================== -->
+  <style>
+    /* Respect Reduced Motion (WCAG) */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none !important; }
+      html { scroll-behavior: auto !important; }
+      .floaty { animation: none !important; }
+    }
+
+    /* Slight glass effect + glow */
+    .glass { backdrop-filter: blur(10px); }
+    .glow { box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 12px 40px rgba(0,0,0,.35); }
+  </style>
 </head>
 
-<body class="bg-white text-slate-900 antialiased">
-
-  <!-- Accessibility: Skip link -->
+<body class="min-h-screen bg-brand-navy text-white antialiased">
+  <!-- =========================================================
+    Skip link (accessibility)
+  ========================================================== -->
   <a href="#main"
-     class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 bg-slate-900 text-white px-4 py-2 rounded-lg">
+     class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[70] focus:rounded-lg focus:bg-black focus:px-4 focus:py-2 focus:text-white focus:shadow-lg">
     Skip to main content
   </a>
 
-  <!-- Header -->
-  <header class="sticky top-0 z-40 bg-white border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-      <div class="font-bold text-lg text-brand-blue">
-        Langalihle Foundation
+  <!-- =========================================================
+    Top Trust Bar (strong trust signal)
+  ========================================================== -->
+  <div class="border-b border-white/10 bg-brand-navy2">
+    <div class="mx-auto max-w-7xl px-4 py-2 text-xs sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-between gap-2 text-white/90">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+          <span class="inline-flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-emerald-400" aria-hidden="true"></span>
+            Registered Non-Profit • <strong class="font-semibold">NPO 265–291</strong> • Since 2021
+          </span>
+          <span class="hidden sm:inline">Tembisa • Mashashane (Limpopo)</span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="#impact"
+             class="font-semibold underline decoration-white/30 underline-offset-2 hover:decoration-brand-sky focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/50">
+            Proof of Impact
+          </a>
+          <a href="#transparency"
+             class="font-semibold underline decoration-white/30 underline-offset-2 hover:decoration-brand-sky focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/50">
+            Financial Transparency
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+    Sticky Navigation (Requested style)
+    - Yellow bar, black text
+    - Hover: light blue
+    - Donate button: high-contrast
+  ========================================================== -->
+  <header class="sticky top-0 z-50 border-b border-black/10 bg-brand-yellow">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <!-- Brand -->
+        <a href="#"
+           class="flex items-center gap-3 rounded-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60"
+           aria-label="Langalihle Foundation home">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-black text-brand-yellow font-extrabold" aria-hidden="true">LF</span>
+          <div class="leading-tight text-black">
+            <p class="text-sm font-extrabold">Langalihle Foundation NPO</p>
+            <p class="text-xs font-semibold/none opacity-80">From Our Roots, We Rise</p>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden items-center gap-1 md:flex" aria-label="Primary navigation">
+          <a href="#who" class="navlink rounded-lg px-3 py-2 text-sm font-bold text-black hover:text-brand-sky focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">Who We Are</a>
+          <a href="#services" class="navlink rounded-lg px-3 py-2 text-sm font-bold text-black hover:text-brand-sky focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">Services</a>
+          <a href="#projects" class="navlink rounded-lg px-3 py-2 text-sm font-bold text-black hover:text-brand-sky focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">Projects</a>
+          <a href="#impact" class="navlink rounded-lg px-3 py-2 text-sm font-bold text-black hover:text-brand-sky focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">Impact</a>
+          <a href="#get-involved" class="navlink rounded-lg px-3 py-2 text-sm font-bold text-black hover:text-brand-sky focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">Get Involved</a>
+          <a href="#contact" class="navlink rounded-lg px-3 py-2 text-sm font-bold text-black hover:text-brand-sky focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">Contact</a>
+
+          <a href="#donate"
+             class="ml-2 inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-sm font-extrabold text-white shadow-sm hover:bg-brand-navy2 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60"
+             aria-label="Donate to Langalihle Foundation">
+            Donate
+          </a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button id="menuBtn"
+                type="button"
+                class="inline-flex items-center justify-center rounded-lg p-2 text-black hover:bg-black/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60 md:hidden"
+                aria-label="Open menu"
+                aria-controls="mobile-menu"
+                aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
       </div>
 
-      <a href="#donate"
-         class="bg-slate-900 text-white px-4 py-2 rounded-xl font-semibold hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-brand-yellow/50">
-        Donate
-      </a>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden pb-4 md:hidden">
+        <nav class="flex flex-col gap-1 pt-2" aria-label="Mobile primary navigation">
+          <a href="#who" class="rounded-lg px-3 py-2 text-sm font-bold text-black hover:text-brand-sky">Who We Are</a>
+          <a href="#services" class="rounded-lg px-3 py-2 text-sm font-bold text-black hover:text-brand-sky">Services</a>
+          <a href="#projects" class="rounded-lg px-3 py-2 text-sm font-bold text-black hover:text-brand-sky">Projects</a>
+          <a href="#impact" class="rounded-lg px-3 py-2 text-sm font-bold text-black hover:text-brand-sky">Impact</a>
+          <a href="#transparency" class="rounded-lg px-3 py-2 text-sm font-bold text-black hover:text-brand-sky">Transparency</a>
+          <a href="#get-involved" class="rounded-lg px-3 py-2 text-sm font-bold text-black hover:text-brand-sky">Get Involved</a>
+          <a href="#contact" class="rounded-lg px-3 py-2 text-sm font-bold text-black hover:text-brand-sky">Contact</a>
+
+          <a href="#donate"
+             class="mt-2 inline-flex items-center justify-center rounded-xl bg-black px-4 py-3 text-sm font-extrabold text-white shadow-sm hover:bg-brand-navy2 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">
+            Donate
+          </a>
+        </nav>
+      </div>
     </div>
   </header>
 
-  <!-- Main -->
+  <!-- =========================================================
+    MAIN CONTENT
+  ========================================================== -->
   <main id="main">
+    <!-- =========================================================
+      HERO SECTION (top conversion area)
+      - Strong message + two CTAs
+      - Visual interest via gradient glows
+    ========================================================== -->
+    <section class="relative overflow-hidden">
+      <!-- Background glow shapes -->
+      <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div class="absolute -top-20 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-sky/20 blur-3xl"></div>
+        <div class="absolute -bottom-28 right-0 h-96 w-96 rounded-full bg-brand-yellow/15 blur-3xl"></div>
+      </div>
 
-    <!-- Hero -->
-    <section class="max-w-7xl mx-auto px-4 py-20 text-center">
-      <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900">
-        From Our Roots, We Rise
-      </h1>
+      <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+        <div class="grid items-center gap-10 lg:grid-cols-2">
+          <!-- Left: copy + CTAs -->
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out">
+            <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-extrabold text-white/90">
+              🌱 LANGALIHLE FOUNDATION NPO
+            </p>
 
-      <p class="mt-6 max-w-2xl mx-auto text-lg text-slate-700">
-        Empowering youth and disadvantaged communities through skills development,
-        infrastructure, arts & culture, and environmental sustainability.
-      </p>
+            <h1 class="mt-5 text-3xl font-extrabold tracking-tight sm:text-5xl">
+              From Our Roots, We Rise
+            </h1>
 
-      <div class="mt-8 flex justify-center gap-4">
-        <a href="#donate"
-           class="bg-brand-blue text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-900 focus:outline-none focus:ring-4 focus:ring-brand-sky/50">
-          Donate Now
-        </a>
+            <p class="mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
+              Langalihle Foundation NPO is a community-driven non-profit organisation dedicated to empowering youth and disadvantaged communities through
+              skills development, infrastructure support, cultural preservation, and sustainable development initiatives.
+            </p>
 
-        <a href="#about"
-           class="border border-slate-300 px-6 py-3 rounded-xl font-semibold text-slate-900 hover:bg-slate-50">
-          Learn More
-        </a>
+            <p class="mt-4 max-w-xl text-base leading-relaxed text-white/85">
+              We work alongside communities to create practical solutions that restore dignity, unlock opportunity, and build a better future for generations to come.
+            </p>
+
+            <!-- CTAs -->
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <a href="#get-involved"
+                 class="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-yellow px-6 py-3 text-sm font-extrabold text-black shadow-sm hover:brightness-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Partner With Us
+              </a>
+
+              <a href="#services"
+                 class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17l10-10M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Explore Our Work
+              </a>
+
+              <button id="openDonateHero"
+                      class="inline-flex items-center justify-center gap-2 rounded-xl bg-black px-6 py-3 text-sm font-extrabold text-white shadow-sm hover:bg-brand-navy2 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60"
+                      aria-haspopup="dialog" aria-controls="donateModal">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.6-7 10-7 10Z"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Donate Securely
+              </button>
+            </div>
+
+            <!-- Trust signals -->
+            <dl class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3" aria-label="Trust signals">
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
+                <dt class="text-xs font-bold text-white/70">NPO Registration</dt>
+                <dd class="mt-1 text-sm font-extrabold">265–291</dd>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
+                <dt class="text-xs font-bold text-white/70">Established</dt>
+                <dd class="mt-1 text-sm font-extrabold">2021</dd>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
+                <dt class="text-xs font-bold text-white/70">Receipts</dt>
+                <dd class="mt-1 text-sm font-extrabold">Email proof of payment</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Right: sponsor-attracting “highlight panel” -->
+          <aside class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-3xl border border-white/10 bg-white/5 p-6 glow">
+            <div class="rounded-2xl bg-black/20 p-5">
+              <p class="text-xs font-extrabold text-white/70">Sponsor-ready focus areas</p>
+              <ul class="mt-3 space-y-2 text-sm text-white/90" aria-label="Focus areas">
+                <li class="flex gap-2"><span class="text-brand-yellow font-extrabold" aria-hidden="true">✓</span> Skills development and digital inclusion</li>
+                <li class="flex gap-2"><span class="text-brand-yellow font-extrabold" aria-hidden="true">✓</span> Household infrastructure (energy, water)</li>
+                <li class="flex gap-2"><span class="text-brand-yellow font-extrabold" aria-hidden="true">✓</span> Arts, culture and heritage preservation</li>
+                <li class="flex gap-2"><span class="text-brand-yellow font-extrabold" aria-hidden="true">✓</span> Sustainable development and food security</li>
+              </ul>
+            </div>
+
+            <div class="mt-5 grid gap-4 sm:grid-cols-2">
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
+                <p class="text-xs font-extrabold text-white/70">Email</p>
+                <a href="mailto:agolempho@gmail.com"
+                   class="mt-1 inline-block text-sm font-extrabold underline decoration-white/30 underline-offset-4 hover:decoration-brand-sky focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">
+                  agolempho@gmail.com
+                </a>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
+                <p class="text-xs font-extrabold text-white/70">Phone</p>
+                <a href="tel:+27718203626"
+                   class="mt-1 inline-block text-sm font-extrabold underline decoration-white/30 underline-offset-4 hover:decoration-brand-sky focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">
+                  071 820 3626
+                </a>
+              </div>
+            </div>
+
+            <div class="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
+              <p class="text-xs font-extrabold text-white/70">Quick statement</p>
+              <p class="mt-2 text-sm text-white/85">
+                “We don’t do handouts — we build partnerships that restore dignity and create opportunity.”
+              </p>
+            </div>
+          </aside>
+        </div>
       </div>
     </section>
 
-    <!-- Impact -->
-    <section class="bg-slate-50 py-16">
-      <div class="max-w-7xl mx-auto px-4">
-        <h2 class="text-2xl md:text-3xl font-bold text-center">
-          Impact at a Glance
-        </h2>
+    <!-- =========================================================
+      WHO WE ARE
+    ========================================================== -->
+    <section id="who" class="border-t border-white/10">
+      <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out max-w-3xl">
+          <h2 class="text-2xl font-extrabold tracking-tight sm:text-3xl">Who We Are</h2>
+          <p class="mt-4 text-white/85 leading-relaxed">
+            Langalihle Foundation NPO was established in 2021 to respond to the social, economic, and developmental challenges faced by rural and township communities in South Africa.
+            Our approach is rooted in collaboration, sustainability, and long-term impact.
+          </p>
+          <p class="mt-4 text-white/85 leading-relaxed">
+            We believe that empowered communities are built through access to skills, infrastructure, culture, and opportunity — not handouts, but partnerships.
+          </p>
 
-        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-          <div class="bg-white p-6 rounded-2xl shadow-sm">
-            <p class="text-4xl font-extrabold text-brand-blue">1,200+</p>
-            <p class="mt-2 text-slate-600">Youth Trained</p>
+          <div class="mt-8 grid gap-5 sm:grid-cols-2">
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+              <h3 class="text-sm font-extrabold">Vision</h3>
+              <p class="mt-2 text-sm text-white/85">
+                To create a world where every young person and disadvantaged community member has access to the resources, skills, and opportunities needed to thrive,
+                live with dignity, and take pride in their culture and environment.
+              </p>
+            </div>
+
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+              <h3 class="text-sm font-extrabold">Mission</h3>
+              <p class="mt-2 text-sm text-white/85">
+                To empower and uplift youth and disadvantaged communities through skills development and sustainable community projects in infrastructure, housing,
+                arts, culture, and environmental restoration — while fostering partnerships that enable long-term social and economic impact.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Values chips -->
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out mt-10">
+          <h3 class="text-sm font-extrabold text-white/90">Core Values</h3>
+          <div class="mt-4 flex flex-wrap gap-2" aria-label="Core values">
+            <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-bold">Empowerment</span>
+            <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-bold">Community Development</span>
+            <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-bold">Compassion</span>
+            <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-bold">Collaboration</span>
+            <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-bold">Integrity</span>
+            <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-bold">Diversity & Inclusion</span>
+            <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-bold">Innovation</span>
+            <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-bold">Sustainability</span>
+            <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-bold">Excellence</span>
+            <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-bold">Passion</span>
+          </div>
+        </div>
+
+        <!-- Leadership -->
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out mt-12 rounded-3xl border border-white/10 bg-white/5 p-6 glow">
+          <h3 class="text-sm font-extrabold">Leadership & Governance</h3>
+          <p class="mt-2 text-sm text-white/85">
+            Langalihle Foundation NPO is guided by a dedicated leadership team committed to accountability, ethical governance, and community impact.
+          </p>
+          <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 text-sm text-white/90" aria-label="Leadership list">
+            <li class="rounded-2xl bg-black/20 p-4 hover:bg-black/30 transition"><strong>Mpho Ledwaba</strong> (Founder)</li>
+            <li class="rounded-2xl bg-black/20 p-4 hover:bg-black/30 transition"><strong>Evah Magongoa</strong></li>
+            <li class="rounded-2xl bg-black/20 p-4 hover:bg-black/30 transition"><strong>Clement Ramashala</strong></li>
+            <li class="rounded-2xl bg-black/20 p-4 hover:bg-black/30 transition"><strong>Kgaogelo Ledwaba</strong></li>
+            <li class="rounded-2xl bg-black/20 p-4 hover:bg-black/30 transition"><strong>Tshepo Ledwaba</strong></li>
+            <li class="rounded-2xl bg-black/20 p-4 hover:bg-black/30 transition"><strong>Lynnete Magongoa</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+      SERVICES (What We Do)
+    ========================================================== -->
+    <section id="services" class="border-t border-white/10 bg-brand-navy2">
+      <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out max-w-3xl">
+          <h2 class="text-2xl font-extrabold tracking-tight sm:text-3xl">What We Do (Services)</h2>
+          <p class="mt-4 text-white/85 leading-relaxed">
+            We deliver practical services that improve daily living conditions and create pathways to self-reliance.
+          </p>
+        </div>
+
+        <!-- Service cards -->
+        <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" aria-label="Services">
+          <!-- Helper classes: hover lift + border glow -->
+          <!-- IT & Digital Skills -->
+          <article class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:-translate-y-1 hover:border-white/20 transition">
+            <div class="flex items-start gap-3">
+              <div class="rounded-xl bg-brand-yellow text-black p-2" aria-hidden="true">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 5h16v10H4V5Zm4 14h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold">IT & Digital Skills</h3>
+                <p class="mt-2 text-sm text-white/85">
+                  Bridging the digital divide through technology access and digital skills training (computer literacy, basic IT skills, cybersecurity awareness, and digital tools).
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Electrical & Energy -->
+          <article class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:-translate-y-1 hover:border-white/20 transition">
+            <div class="flex items-start gap-3">
+              <div class="rounded-xl bg-brand-yellow text-black p-2" aria-hidden="true">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2v6m0 14v-6M4.2 6.2l4.2 4.2m11.4 11.4-4.2-4.2M2 12h6m14 0h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold">Electrical & Energy Support</h3>
+                <p class="mt-2 text-sm text-white/85">
+                  Improving safety and access to reliable, sustainable energy solutions through basic repairs, safety upgrades, and energy-efficient support.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Plumbing & Water -->
+          <article class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:-translate-y-1 hover:border-white/20 transition">
+            <div class="flex items-start gap-3">
+              <div class="rounded-xl bg-brand-yellow text-black p-2" aria-hidden="true">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M8 3v6a4 4 0 0 0 8 0V3M6 21h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold">Plumbing & Water Services</h3>
+                <p class="mt-2 text-sm text-white/85">
+                  Enhancing sanitation, hygiene, and water efficiency through repairs, installations, leak prevention, and water-saving solutions.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Arts & Culture -->
+          <article class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:-translate-y-1 hover:border-white/20 transition">
+            <div class="flex items-start gap-3">
+              <div class="rounded-xl bg-brand-yellow text-black p-2" aria-hidden="true">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 19V5m0 14h16M8 15l2-3 3 2 3-6 2 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold">Arts & Culture Development</h3>
+                <p class="mt-2 text-sm text-white/85">
+                  Preserving heritage and empowering creative expression through workshops, exhibitions, performances, and cultural events.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Farming & Food Security -->
+          <article class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:-translate-y-1 hover:border-white/20 transition">
+            <div class="flex items-start gap-3">
+              <div class="rounded-xl bg-brand-yellow text-black p-2" aria-hidden="true">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 22c4-3 7-7 7-12a7 7 0 0 0-14 0c0 5 3 9 7 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold">Farming & Food Security</h3>
+                <p class="mt-2 text-sm text-white/85">
+                  Supporting sustainable agriculture through skills training, community gardens, irrigation support, and environmentally responsible practices.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Infrastructure Support -->
+          <article class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:-translate-y-1 hover:border-white/20 transition">
+            <div class="flex items-start gap-3">
+              <div class="rounded-xl bg-brand-yellow text-black p-2" aria-hidden="true">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 21h18M6 21V8l6-5 6 5v13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold">Infrastructure Support</h3>
+                <p class="mt-2 text-sm text-white/85">
+                  Practical upliftment initiatives that improve daily living conditions and strengthen community resilience.
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+      PROJECTS
+    ========================================================== -->
+    <section id="projects" class="border-t border-white/10">
+      <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out max-w-3xl">
+          <h2 class="text-2xl font-extrabold tracking-tight sm:text-3xl">Projects & Impact</h2>
+          <p class="mt-4 text-white/85 leading-relaxed">
+            Our flagship projects demonstrate what’s possible when communities and partners work together.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-5 lg:grid-cols-3" aria-label="Projects list">
+          <article class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:-translate-y-1 transition">
+            <h3 class="text-sm font-extrabold">2024 – Community Solar Project (Tembisa)</h3>
+            <p class="mt-2 text-sm text-white/85">
+              Installed two solar power systems for disadvantaged households in informal settlements, providing reliable lighting and phone charging.
+              Improved safety, communication, and overall quality of life.
+            </p>
+          </article>
+
+          <article class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:-translate-y-1 transition">
+            <h3 class="text-sm font-extrabold">2025 – Walk to Our Roots (Mashashane)</h3>
+            <p class="mt-2 text-sm text-white/85">
+              A 20km cultural and wellness initiative bringing together youth and elders on Good Friday, promoting health, reflection,
+              unity, and cultural pride. A second event is planned for April.
+            </p>
+          </article>
+
+          <article class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:-translate-y-1 transition">
+            <h3 class="text-sm font-extrabold">Ongoing Programs</h3>
+            <p class="mt-2 text-sm text-white/85">
+              Ongoing IT support, infrastructure services, arts and culture programs, farming initiatives, and community development activities across rural and township communities.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+      IMPACT (with animated counters + quick proof blocks)
+    ========================================================== -->
+    <section id="impact" class="border-t border-white/10 bg-brand-navy2">
+      <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out max-w-3xl">
+          <h2 class="text-2xl font-extrabold tracking-tight sm:text-3xl">Proof of Impact</h2>
+          <p class="mt-4 text-white/85 leading-relaxed">
+            We focus on measurable outcomes that improve safety, dignity, health, and opportunity in communities.
+          </p>
+        </div>
+
+        <!-- Impact cards (animated counters) -->
+        <div class="mt-10 grid gap-5 md:grid-cols-3" aria-label="Impact highlights">
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+            <p class="text-sm font-bold text-white/80">Solar households supported</p>
+            <p class="mt-3 text-4xl font-extrabold text-brand-yellow">
+              <span class="count" data-count="2">0</span>
+            </p>
+            <p class="mt-2 text-sm text-white/85">Disadvantaged households provided with solar power systems.</p>
           </div>
 
-          <div class="bg-white p-6 rounded-2xl shadow-sm">
-            <p class="text-4xl font-extrabold text-brand-blue">45</p>
-            <p class="mt-2 text-slate-600">Community Projects</p>
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+            <p class="text-sm font-bold text-white/80">Access improvements</p>
+            <p class="mt-3 text-4xl font-extrabold text-brand-yellow">Lighting</p>
+            <p class="mt-2 text-sm text-white/85">Safe lighting and phone-charging access introduced in informal settlements.</p>
           </div>
 
-          <div class="bg-white p-6 rounded-2xl shadow-sm">
-            <p class="text-4xl font-extrabold text-brand-blue">8,500</p>
-            <p class="mt-2 text-slate-600">Trees Planted</p>
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+            <p class="text-sm font-bold text-white/80">Cultural heritage walk</p>
+            <p class="mt-3 text-4xl font-extrabold text-brand-yellow">
+              <span class="count" data-count="20">0</span><span class="text-2xl font-extrabold">km</span>
+            </p>
+            <p class="mt-2 text-sm text-white/85">Completed with youth and elders to promote health and unity.</p>
+          </div>
+        </div>
+
+        <!-- Why Langalihle -->
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out mt-10 rounded-3xl border border-white/10 bg-white/5 p-6 glow">
+          <h3 class="text-sm font-extrabold">Why Langalihle</h3>
+          <ul class="mt-4 grid gap-3 sm:grid-cols-2 text-sm text-white/90" aria-label="Why Langalihle list">
+            <li class="flex gap-2"><span class="text-brand-yellow font-extrabold" aria-hidden="true">✓</span> Registered Non-Profit Organisation</li>
+            <li class="flex gap-2"><span class="text-brand-yellow font-extrabold" aria-hidden="true">✓</span> Community-led and people-centred</li>
+            <li class="flex gap-2"><span class="text-brand-yellow font-extrabold" aria-hidden="true">✓</span> Transparent, ethical, and accountable</li>
+            <li class="flex gap-2"><span class="text-brand-yellow font-extrabold" aria-hidden="true">✓</span> Focused on youth empowerment and sustainability</li>
+          </ul>
+        </div>
+
+        <!-- Sponsor CTA -->
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a href="#get-involved"
+             class="inline-flex items-center justify-center rounded-xl bg-brand-yellow px-6 py-3 text-sm font-extrabold text-black hover:brightness-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">
+            Sponsor / Partner With Us
+          </a>
+          <a href="#transparency"
+             class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">
+            View Transparency
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+      TRANSPARENCY (includes banking details)
+    ========================================================== -->
+    <section id="transparency" class="border-t border-white/10">
+      <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out max-w-3xl">
+          <h2 class="text-2xl font-extrabold tracking-tight sm:text-3xl">Financial Transparency</h2>
+          <p class="mt-4 text-white/85 leading-relaxed">
+            We commit to responsible, effective use of resources, open communication, and accountable reporting.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" aria-label="Transparency cards">
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+            <p class="text-xs font-extrabold text-white/70">Registration</p>
+            <p class="mt-2 text-sm font-extrabold">NPO 265–291 • Founded 2021</p>
+            <p class="mt-2 text-sm text-white/85">Community-driven • people-centred • accountable</p>
+          </div>
+
+          <!-- Banking details block -->
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+            <p class="text-xs font-extrabold text-white/70">Banking Details (South Africa)</p>
+            <dl class="mt-3 space-y-2 text-sm text-white/90">
+              <div class="flex items-start justify-between gap-4">
+                <dt class="text-white/70">Bank</dt><dd class="font-extrabold">FNB</dd>
+              </div>
+              <div class="flex items-start justify-between gap-4">
+                <dt class="text-white/70">Account Number</dt><dd class="font-extrabold">63023739387</dd>
+              </div>
+              <div class="flex items-start justify-between gap-4">
+                <dt class="text-white/70">Account Type</dt><dd class="font-extrabold">Gold Business Account</dd>
+              </div>
+              <div class="flex items-start justify-between gap-4">
+                <dt class="text-white/70">Branch</dt><dd class="font-extrabold">Greenstone</dd>
+              </div>
+              <div class="flex items-start justify-between gap-4">
+                <dt class="text-white/70">Branch Number</dt><dd class="font-extrabold">949</dd>
+              </div>
+            </dl>
+            <p class="mt-4 text-xs text-white/70">
+              Tip: Use your name + “Donation” as the payment reference.
+            </p>
+          </div>
+
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+            <p class="text-xs font-extrabold text-white/70">Receipts & Documents</p>
+            <p class="mt-2 text-sm text-white/85">
+              For donation receipts, email proof of payment with your details to
+              <a class="font-extrabold underline decoration-white/30 underline-offset-4 hover:decoration-brand-sky"
+                 href="mailto:agolempho@gmail.com">agolempho@gmail.com</a>.
+            </p>
+            <ul class="mt-4 space-y-2 text-xs text-white/80">
+              <li>• Annual Report (add PDF link)</li>
+              <li>• Financial Statements (add PDF link)</li>
+              <li>• NPO Certificate (add PDF link)</li>
+              <li>• Policies (add PDF link)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- International payment note -->
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out mt-8 rounded-3xl border border-white/10 bg-white/5 p-6 glow">
+          <h3 class="text-sm font-extrabold">International Donations</h3>
+          <p class="mt-2 text-sm text-white/85">
+            For international donors, a modern payment gateway (e.g., Stripe) is ideal and supports one-tap mobile payments (Apple Pay / Google Pay) once enabled.
+            We’ll connect it next so international sponsors can donate easily.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+      GET INVOLVED (Sponsor + Volunteer portal)
+    ========================================================== -->
+    <section id="get-involved" class="border-t border-white/10 bg-brand-navy2">
+      <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out max-w-3xl">
+          <h2 class="text-2xl font-extrabold tracking-tight sm:text-3xl">Get Involved</h2>
+          <p class="mt-4 text-white/85 leading-relaxed">
+            There are many ways to support and partner with Langalihle Foundation NPO. Together, we can build stronger, more resilient communities.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-5 lg:grid-cols-4" aria-label="Get involved options">
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:-translate-y-1 transition">
+            <h3 class="text-sm font-extrabold">Partner With Us</h3>
+            <p class="mt-2 text-sm text-white/85">Collaborate with us on long-term community development projects and initiatives.</p>
+          </div>
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:-translate-y-1 transition">
+            <h3 class="text-sm font-extrabold">Volunteer</h3>
+            <p class="mt-2 text-sm text-white/85">Share your time, skills, or expertise to support our programs.</p>
+          </div>
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:-translate-y-1 transition">
+            <h3 class="text-sm font-extrabold">Sponsor a Project</h3>
+            <p class="mt-2 text-sm text-white/85">Support a specific community initiative and track measurable outcomes.</p>
+          </div>
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:-translate-y-1 transition">
+            <h3 class="text-sm font-extrabold">Collaborate</h3>
+            <p class="mt-2 text-sm text-white/85">Work with us as an organisation, institution, or stakeholder.</p>
+          </div>
+        </div>
+
+        <!-- Volunteer Portal (Prototype Form) -->
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out mt-10 rounded-3xl border border-white/10 bg-white/5 p-6 glow">
+          <h3 class="text-sm font-extrabold">Volunteer Portal (Quick Sign-Up)</h3>
+          <p class="mt-2 text-sm text-white/85">
+            This form is a prototype (no backend yet). Later we can connect it to Netlify Forms, Google Sheets, or a CRM.
+          </p>
+
+          <form class="mt-6 grid gap-4 sm:grid-cols-2" aria-label="Volunteer sign-up form">
+            <div>
+              <label for="vname" class="text-sm font-bold">Full name</label>
+              <input id="vname" type="text"
+                     class="mt-2 w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60"
+                     placeholder="Your name" />
+            </div>
+            <div>
+              <label for="vemail" class="text-sm font-bold">Email</label>
+              <input id="vemail" type="email"
+                     class="mt-2 w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60"
+                     placeholder="you@email.com" />
+            </div>
+            <div class="sm:col-span-2">
+              <label for="vmsg" class="text-sm font-bold">How would you like to help?</label>
+              <textarea id="vmsg" rows="3"
+                        class="mt-2 w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60"
+                        placeholder="Tell us your skills and availability…"></textarea>
+            </div>
+            <div class="sm:col-span-2 flex justify-end">
+              <button type="button"
+                      class="inline-flex items-center justify-center rounded-xl bg-brand-yellow px-6 py-3 text-sm font-extrabold text-black hover:brightness-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">
+                Submit (Prototype)
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+      DONATE (gateway-ready modal)
+    ========================================================== -->
+    <section id="donate" class="border-t border-white/10">
+      <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-3xl border border-white/10 bg-black/25 p-8 sm:p-10 glow">
+          <h2 class="text-2xl font-extrabold sm:text-3xl">Support Our Work</h2>
+          <p class="mt-3 max-w-2xl text-sm text-white/85 sm:text-base">
+            Your donation helps fund skills development, infrastructure support, cultural initiatives, and sustainable community programs.
+            Next step: connect a payment gateway for international donations and monthly giving.
+          </p>
+
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <button id="openDonate"
+                    class="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-yellow px-6 py-3 text-sm font-extrabold text-black hover:brightness-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60"
+                    aria-haspopup="dialog" aria-controls="donateModal">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.6-7 10-7 10Z"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Donate Securely
+            </button>
+
+            <a href="#transparency"
+               class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">
+              Bank Transfer & Receipts
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Donate -->
-    <section id="donate" class="py-20">
-      <div class="max-w-3xl mx-auto px-4 text-center">
-        <h2 class="text-2xl md:text-3xl font-bold">
-          Support Our Work
-        </h2>
+    <!-- =========================================================
+      CONTACT
+    ========================================================== -->
+    <section id="contact" class="border-t border-white/10 bg-brand-navy2">
+      <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out max-w-3xl">
+          <h2 class="text-2xl font-extrabold tracking-tight sm:text-3xl">Contact Us</h2>
+          <p class="mt-4 text-white/85 leading-relaxed">
+            Partnerships, volunteering, sponsorships, or receipts — reach out anytime.
+          </p>
+        </div>
 
-        <p class="mt-4 text-slate-700">
-          Your donation helps us build stronger, empowered communities.
-        </p>
+        <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" aria-label="Contact information">
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+            <p class="text-xs font-extrabold text-white/70">Physical Address</p>
+            <p class="mt-2 text-sm font-extrabold">Community Centre</p>
+            <p class="text-sm text-white/85">81 Tsenelong Section, Tembisa, 1632</p>
+          </div>
 
-        <a href="#"
-           class="inline-block mt-6 bg-slate-900 text-white px-8 py-4 rounded-xl font-semibold hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-brand-yellow/50">
-          Donate Securely
-        </a>
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+            <p class="text-xs font-extrabold text-white/70">Main Office</p>
+            <p class="mt-2 text-sm font-extrabold">House 91 Mars</p>
+            <p class="text-sm text-white/85">Mashashane Village, 0743</p>
+          </div>
+
+          <div class="reveal opacity-0 translate-y-4 transition duration-700 ease-out rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+            <p class="text-xs font-extrabold text-white/70">Phone & Email</p>
+            <a href="tel:+27718203626"
+               class="mt-2 block text-sm font-extrabold underline decoration-white/30 underline-offset-4 hover:decoration-brand-sky focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">
+              071 820 3626
+            </a>
+            <a href="mailto:agolempho@gmail.com"
+               class="mt-2 block text-sm font-extrabold underline decoration-white/30 underline-offset-4 hover:decoration-brand-sky focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">
+              agolempho@gmail.com
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- =========================================================
+      Floating Donate Button (Mobile conversion)
+    ========================================================== -->
+    <button id="openDonateFab"
+            class="md:hidden fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-brand-yellow px-5 py-3 text-sm font-extrabold text-black shadow-xl hover:brightness-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60"
+            aria-label="Donate now"
+            aria-haspopup="dialog" aria-controls="donateModal">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.6-7 10-7 10Z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Donate
+    </button>
+
+    <!-- =========================================================
+      DONATE MODAL (gateway-ready UI)
+      - Once-off / Monthly toggle
+      - Amount selection + custom
+      - Bank transfer details included
+    ========================================================== -->
+    <div id="donateModal"
+         class="fixed inset-0 z-[80] hidden"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="donateTitle">
+      <div class="absolute inset-0 bg-black/70" aria-hidden="true"></div>
+
+      <div class="relative mx-auto mt-24 w-[92%] max-w-lg rounded-3xl border border-white/10 bg-brand-navy2 p-6 shadow-2xl glow">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h3 id="donateTitle" class="text-xl font-extrabold">Support Langalihle Foundation</h3>
+            <p class="mt-1 text-sm text-white/85">
+              Choose once-off or monthly giving. Apple Pay / Google Pay work once the gateway is connected.
+            </p>
+          </div>
+          <button id="closeDonate"
+                  class="rounded-xl p-2 text-white/80 hover:bg-white/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60"
+                  aria-label="Close donation modal">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Frequency toggle -->
+        <div class="mt-5 grid grid-cols-2 gap-3" role="tablist" aria-label="Donation frequency">
+          <button id="onceBtn"
+                  class="rounded-2xl bg-white/10 px-4 py-3 text-sm font-extrabold hover:bg-white/15 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60"
+                  aria-selected="true">
+            Once-off
+          </button>
+          <button id="monthlyBtn"
+                  class="rounded-2xl bg-white/5 px-4 py-3 text-sm font-extrabold hover:bg-white/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60"
+                  aria-selected="false">
+            Monthly
+          </button>
+        </div>
+
+        <!-- Amount selection -->
+        <div class="mt-5">
+          <p class="text-xs font-extrabold text-white/70">Select an amount</p>
+          <div class="mt-3 grid grid-cols-3 gap-3">
+            <button class="amt rounded-2xl bg-white/5 px-4 py-3 text-sm font-extrabold hover:bg-white/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60" data-amt="50">R50</button>
+            <button class="amt rounded-2xl bg-white/5 px-4 py-3 text-sm font-extrabold hover:bg-white/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60" data-amt="150">R150</button>
+            <button class="amt rounded-2xl bg-white/5 px-4 py-3 text-sm font-extrabold hover:bg-white/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60" data-amt="300">R300</button>
+            <button class="amt rounded-2xl bg-white/5 px-4 py-3 text-sm font-extrabold hover:bg-white/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60" data-amt="500">R500</button>
+            <button class="amt rounded-2xl bg-white/5 px-4 py-3 text-sm font-extrabold hover:bg-white/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60" data-amt="1000">R1000</button>
+            <button class="amt rounded-2xl bg-white/5 px-4 py-3 text-sm font-extrabold hover:bg-white/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60" data-amt="2500">R2500</button>
+          </div>
+
+          <label class="mt-4 block text-xs font-extrabold text-white/70" for="customAmt">Or enter custom amount (ZAR)</label>
+          <input id="customAmt" type="number" min="10" step="10"
+                 class="mt-2 w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60"
+                 placeholder="e.g. 200" />
+        </div>
+
+        <!-- Bank transfer fallback -->
+        <div class="mt-6 rounded-2xl border border-white/10 bg-black/20 p-4">
+          <p class="text-xs font-extrabold text-white/70">Bank Transfer option</p>
+          <p class="mt-2 text-sm text-white/90">
+            FNB • Acc: <span class="font-extrabold">63023739387</span> • Gold Business Account<br/>
+            Branch: Greenstone • Branch Number: <span class="font-extrabold">949</span>
+          </p>
+          <p class="mt-2 text-xs text-white/70">Email POP for receipts: agolempho@gmail.com</p>
+        </div>
+
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <button id="payNow"
+                  class="inline-flex flex-1 items-center justify-center rounded-2xl bg-brand-yellow px-5 py-3 text-sm font-extrabold text-black hover:brightness-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">
+            Continue to Secure Payment
+          </button>
+          <a href="#transparency"
+             class="inline-flex flex-1 items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-bold text-white hover:bg-white/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-sky/60">
+            Transparency
+          </a>
+        </div>
+
+        <p class="mt-4 text-xs text-white/60">
+          Note: Payment gateway will be connected next (Stripe/PayFast). Apple Pay / Google Pay become available once enabled.
+        </p>
+      </div>
+    </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-200 py-6 text-center text-sm text-slate-600">
-    © 2026 Langalihle Foundation NPO · Reg 265–291
-  </footer>
+  <!-- =========================================================
+    FOOTER
+  ========================================================== -->
+  <footer class="border-t border-white/10 bg-brand-navy">
+    <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-xs text-white/70">
+          © <span id="year">2026</span> Langalihle Foundation NPO • Reg: 265–291 • “Langalihle” = “Beautiful Day”
+        </p>
 
+        <nav class="flex flex-wrap gap-4 text-xs" aria-label="Footer navigation">
+          <a href="#impact" class="text-white/80 underline decoration-white/20 underline-offset-4 hover:decoration-brand-sky">Impact</a>
+          <a href="#transparency" class="text-white/80 underline decoration-white/20 underline-offset-4 hover:decoration-brand-sky">Transparency</a>
+          <a href="#get-involved" class="text-white/80 underline decoration-white/20 underline-offset-4 hover:decoration-brand-sky">Volunteer</a>
+          <a href="#donate" class="text-white/80 underline decoration-white/20 underline-offset-4 hover:decoration-brand-sky">Donate</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- =========================================================
+      JAVASCRIPT (lightweight functionality)
+      - Mobile menu toggle
+      - Scroll-reveal animations
+      - Animated counters
+      - Donate modal (once-off/monthly + amount select)
+      - Active nav highlighting (desktop)
+    ========================================================== -->
+    <script>
+      // Footer year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // -----------------------------
+      // Mobile menu toggle (accessible)
+      // -----------------------------
+      const btn = document.getElementById("menuBtn");
+      const menu = document.getElementById("mobile-menu");
+      btn?.addEventListener("click", () => {
+        const isOpen = !menu.classList.contains("hidden");
+        menu.classList.toggle("hidden");
+        btn.setAttribute("aria-expanded", String(!isOpen));
+      });
+      // Close mobile menu when a link is clicked
+      document.querySelectorAll('#mobile-menu a').forEach(a => {
+        a.addEventListener('click', () => {
+          menu.classList.add('hidden');
+          btn?.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // -----------------------------
+      // Donate Modal Functionality
+      // -----------------------------
+      const modal = document.getElementById("donateModal");
+      const openDonate = document.getElementById("openDonate");
+      const openDonateHero = document.getElementById("openDonateHero");
+      const openDonateFab = document.getElementById("openDonateFab");
+      const closeDonate = document.getElementById("closeDonate");
+      const payNow = document.getElementById("payNow");
+      const onceBtn = document.getElementById("onceBtn");
+      const monthlyBtn = document.getElementById("monthlyBtn");
+      const customAmt = document.getElementById("customAmt");
+
+      let donationType = "once";
+      let selectedAmt = null;
+
+      function openModal() {
+        modal?.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+        closeDonate?.focus();
+      }
+      function closeModal() {
+        modal?.classList.add("hidden");
+        document.body.style.overflow = "";
+        openDonate?.focus();
+      }
+
+      openDonate?.addEventListener("click", openModal);
+      openDonateHero?.addEventListener("click", openModal);
+      openDonateFab?.addEventListener("click", openModal);
+      closeDonate?.addEventListener("click", closeModal);
+
+      // Close when clicking outside the modal card
+      modal?.addEventListener("click", (e) => {
+        if (e.target === modal || e.target.classList.contains("bg-black/70")) closeModal();
+      });
+
+      // Close on ESC
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal && !modal.classList.contains("hidden")) closeModal();
+      });
+
+      function setType(type) {
+        donationType = type;
+        if (type === "once") {
+          onceBtn.classList.remove("bg-white/5");
+          onceBtn.classList.add("bg-white/10");
+          monthlyBtn.classList.remove("bg-white/10");
+          monthlyBtn.classList.add("bg-white/5");
+          onceBtn.setAttribute("aria-selected", "true");
+          monthlyBtn.setAttribute("aria-selected", "false");
+        } else {
+          monthlyBtn.classList.remove("bg-white/5");
+          monthlyBtn.classList.add("bg-white/10");
+          onceBtn.classList.remove("bg-white/10");
+          onceBtn.classList.add("bg-white/5");
+          monthlyBtn.setAttribute("aria-selected", "true");
+          onceBtn.setAttribute("aria-selected", "false");
+        }
+      }
+      onceBtn?.addEventListener("click", () => setType("once"));
+      monthlyBtn?.addEventListener("click", () => setType("monthly"));
+
+      // Amount buttons highlight + set selected amount
+      document.querySelectorAll(".amt").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectedAmt = btn.getAttribute("data-amt");
+          customAmt.value = "";
+          document.querySelectorAll(".amt").forEach(b => b.classList.remove("ring-4", "ring-brand-sky/60"));
+          btn.classList.add("ring-4", "ring-brand-sky/60");
+        });
+      });
+
+      // Gateway placeholder: plug Stripe/PayFast here
+      payNow?.addEventListener("click", () => {
+        const custom = customAmt.value ? Number(customAmt.value) : null;
+        const amount = custom || (selectedAmt ? Number(selectedAmt) : null);
+
+        if (!amount || amount < 10) {
+          alert("Please select or enter a valid amount (minimum R10).");
+          return;
+        }
+
+        // Replace this with real gateway call later:
+        alert(`Donation Type: ${donationType.toUpperCase()}\nAmount: R${amount}\n\nNext step: connect payment gateway (Stripe/PayFast).`);
+      });
+
+      // -----------------------------
+      // Scroll reveal animations
+      // -----------------------------
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReduced) {
+        const items = document.querySelectorAll('.reveal');
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.remove('opacity-0', 'translate-y-4');
+              e.target.classList.add('opacity-100', 'translate-y-0');
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        items.forEach(el => io.observe(el));
+      } else {
+        document.querySelectorAll('.reveal').forEach(el => {
+          el.classList.remove('opacity-0', 'translate-y-4');
+        });
+      }
+
+      // -----------------------------
+      // Animated counters (when visible)
+      // -----------------------------
+      if (!prefersReduced) {
+        const counters = document.querySelectorAll(".count");
+        const counterIO = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const target = Number(el.getAttribute("data-count")) || 0;
+            const duration = 800;
+            const start = performance.now();
+            const from = Number(el.textContent) || 0;
+
+            function tick(now) {
+              const t = Math.min(1, (now - start) / duration);
+              const value = Math.floor(from + (target - from) * t);
+              el.textContent = value;
+              if (t < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+            counterIO.unobserve(el);
+          });
+        }, { threshold: 0.4 });
+        counters.forEach(c => counterIO.observe(c));
+      } else {
+        document.querySelectorAll(".count").forEach(el => {
+          el.textContent = el.getAttribute("data-count") || el.textContent;
+        });
+      }
+
+      // -----------------------------
+      // Active Nav Highlight (desktop)
+      // -----------------------------
+      const sections = ["who","services","projects","impact","get-involved","contact"]
+        .map(id => document.getElementById(id))
+        .filter(Boolean);
+      const navLinks = Array.from(document.querySelectorAll('header nav a.navlink'));
+
+      const navIO = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const id = entry.target.id;
+          navLinks.forEach(a => {
+            const match = a.getAttribute("href") === `#${id}`;
+            if (match) a.classList.add("underline", "decoration-brand-sky", "underline-offset-4");
+            else a.classList.remove("underline", "decoration-brand-sky", "underline-offset-4");
+          });
+        });
+      }, { threshold: 0.55 });
+
+      sections.forEach(sec => navIO.observe(sec));
+    </script>
+  </footer>
 </body>
 </html>
