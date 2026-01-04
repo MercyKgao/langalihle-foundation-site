@@ -1,25 +1,3 @@
-Contact: mailto:agolempho@gmail.com
-Contact: tel:+27718203626
-
-Expires: 2027-01-01T00:00:00.000Z
-Preferred-Languages: en, nso, zu
-
-Policy: https://YOUR-DOMAIN-HERE/security
-Acknowledgments: https://YOUR-DOMAIN-HERE/security#acknowledgments
-Hiring: https://YOUR-DOMAIN-HERE/get-involved
-
-# Responsible Vulnerability Disclosure Policy
-# ------------------------------------------
-# Please report security vulnerabilities responsibly and privately.
-# Do NOT disclose issues publicly until we confirm and resolve them.
-
-# Include in your report:
-# - Clear description of the issue
-# - Steps to reproduce
-# - Affected URLs or files
-# - Screenshots or logs (if available)
-
-# Please do NOT:
-# - Access or modify other users’ data
-# - Disrupt services (DDoS, spam, etc.)
-# - Use social engineering agai
+Policy: https://langalihle-foundation-site.vercel.app/security
+Acknowledgments: https://langalihle-foundation-site.vercel.app/security#acknowledgments
+Hiring: https://langalihle-foundation-site.vercel.app/get-involved
